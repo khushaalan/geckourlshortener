@@ -57,7 +57,7 @@ class UrlsController < ApplicationController
     
     def get_geolocation(ip)
     api_key = ENV['IPSTACK_API_KEY']
-    ip = ENV['DEV_IP']
+    # ip = ENV['DEV_IP']
     url = "http://api.ipstack.com/#{ip}?access_key=#{api_key}"
     response = HTTP.get(url)
     logger.info "Response: #{response}"
