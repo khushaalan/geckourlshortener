@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gecko URL Shortener 🦎🔗</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= favicon_link_tag asset_path('Gecko.png') %>
+    <style>
+      body {
+        font-family: 'Arial, sans-serif';
+        background-color: #121212;
+        color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      header {
+        background-color: #0D1217;
+        color: white;
+        padding: 20px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .container {
+        width: 90%;
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #1f1f1f;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
+      footer {
+        text-align: center;
+        padding: 10px;
+        background-color: #0D1217;
+        color: white;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+      }
+      .logo {
+        display: block;
+        margin: 20px auto;
+      }
+      .cover-image {
+        width: 100%;
+        max-width: 300px;
+        display: block;
+        margin: 20px auto;
+      }
+      .toast {
+        visibility: hidden;
+        min-width: 250px;
+        margin-left: -125px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+        padding: 16px;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        bottom: 30px;
+        font-size: 17px;
+      }
+      .toast.show {
+        visibility: visible;
+        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      }
+      @-webkit-keyframes fadein {
+        from {bottom: 0; opacity: 0;} 
+        to {bottom: 30px; opacity: 1;}
+      }
+      @keyframes fadein {
+        from {bottom: 0; opacity: 0;}
+        to {bottom: 30px; opacity: 1;}
+      }
+      @-webkit-keyframes fadeout {
+        from {bottom: 30px; opacity: 1;} 
+        to {bottom: 0; opacity: 0;}
+      }
+      @keyframes fadeout {
+        from {bottom: 30px; opacity: 1;}
+        to {bottom: 0; opacity: 0;}
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img src="<%= asset_path('ColorWhite.png') %>" alt="Cover Image" class="cover-image">
+      <h1>Gecko URL Shortener 🦎🔗</h1>
+    </header>
+    <div class="container" style="margin-bottom:50px">
+      <%= yield %>
+    </div>
+    <footer>
+      &copy; 2024 Khushaalan Arjunan
+    </footer>
+
+    <div id="toast" class="toast">Copied to clipboard</div>
+    
+    <script>
+      function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+          showToast('Copied to clipboard');
+        }, function(err) {
+          showToast('Could not copy text: ' + err);
+        });
+      }
+
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.className = "toast show";
+        setTimeout(function() {
+          toast.className = toast.className.replace("show", "");
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+  <div class="container" style="width: 80%;">
+    <form action="/urls" method="post" style="background-color: #1f1f1f; padding: 20px; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+      <%= csrf_meta_tags %>
+      <label for="url" style="display: block; margin-bottom: 10px; font-weight: bold; color: #e0e0e0; text-align: center;">URL</label>
+      <input type="text" name="url" id="url" style="width: 100%; padding: 10px; border: 1px solid #333; border-radius: 5px; margin-bottom: 20px; background-color: #2b2b2b; color: #e0e0e0; font-size: 16px; text-align: center;" required>
+      <input type="submit" value="✂️" style="padding: 10px 20px; background-color: #4BCC00; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+    </form>
+
+    <% if session[:short_url] %>
+    <div style="display: flex; gap: 10px; justify-content: center; align-items: center; margin-top: 20px;">
+      <a href="<%= session[:short_url] %>" style="text-wrap: wrap; text-decoration: none; color: #4CAF50; font-weight: bold;">Shortened URL</a>
+      <img src="https://img.icons8.com/ios-filled/50/000000/copy.png" alt="Copy" class="copy-icon" onclick="copyToClipboard('<%= session[:short_url] %>')" width="15" height="15" style="cursor: pointer">
+    </div>
+    <% end %>
+  </div>
+
+  <div style="margin-top: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+    <% @urls.each do |url| %>
+      <div style="border: 1px solid #333; padding: 20px; margin: 10px; border-radius: 10px; width: 80%; background: #1f1f1f; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); cursor: pointer;" onclick="copyToClipboard(`<%= url_for(controller: 'urls', action: 'redirect', hashed_code: url.hashed_code, only_path: false) %>`)">
+        <h2 style="color: #4BCC00 ; margin-bottom: 10px;"><%= url.hashed_code %></h2>
+        <a href="<%= url_for(controller: 'urls', action: 'redirect', hashed_code: url.hashed_code, only_path: false) %>" style="text-wrap: wrap; text-decoration: none; color: #4CAF50;">Shortened URL 🔗</a>
+        <div style="margin-top: 10px;">
+          <h3 style="margin: 5px 0;">Total Visits ╰┈➤: <%= UrlAnalytics.where(hashed_code: url.hashed_code).count %></h3>
+          <h3 style="margin: 5px 0;">Unique Visits ╰┈➤: <%= UrlAnalytics.where(hashed_code: url.hashed_code).distinct.count(:geolocation) %></h3>
+          <h3 style="margin: 5px 0;">List of Visits:</h3>
+          <ul style="list-style-type: none; padding: 0; margin: 5px 0;">
+            <% UrlAnalytics.where(hashed_code: url.hashed_code).each do |analytic| %>
+              <li style="margin-bottom: 5px;">🕒 <%= analytic.timestamp %> 📍 <%= analytic.geolocation %> </li>
+            <% end %>
+          </ul>
+          <h3 style="margin: 5px 0;">Created At 📝  : <%= url.created_at %></h3>
+          <h3 style="margin: 5px 0;">Original URL 🌐: <%= url.original_url %></h3>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+
+</body>
+</html>
