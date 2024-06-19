@@ -9,14 +9,20 @@ https://geckourlshortener.onrender.com
 #### Visual Overview
 ![Alt text](/screenshot.png)
 
+### Test Results:
+Wrote a few tests to check the functionality of the application using RSpec. The tests can be run using the following command:
+```sh
+bundle exec rspec
+```
+![Alt text](/test-screenshot.png)
+
 
 ## Installation Guide
 
 ### Prerequisites
 - Ruby 3.3.2
 - Rails 7.1.3.4
-- SQLite3 (for development)
-- PostgreSQL (for production)
+- SQLite3
 - IPStack API Key for geolocation
 
 ### Setup
@@ -32,22 +38,19 @@ https://geckourlshortener.onrender.com
     bundle install
     ```
 
-3. **Set up PostgreSQL:**
-    Ensure you have PostgreSQL installed and running. You can download it from the [official website](https://www.postgresql.org/).
-
-4. **Database migration:**
+3. **Database migration:**
     ```sh
     rails db:create
     rails db:migrate
     ```
 
-5. **Configure [IPStack API Key](https://ipstack.com/) Key:**
+4. **Configure [IPStack API Key](https://ipstack.com/) Key:**
     Add your IPStack API key to the environment variables.:
     ```sh
     IPSTACK_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     ```
 
-6. **Start the Rails server:**
+5. **Start the Rails server:**
     ```sh
     rails s
     ```
@@ -57,8 +60,7 @@ https://geckourlshortener.onrender.com
 - **Ruby**: Version 3.3.2
 - **Rails**: Version 7.1.3.4
 - **Database**: 
-  - Development: SQLite3
-  - Production: PostgreSQL
+  - SQLite3
 - **Geolocation**: IPStack (requires API key)
 
 ### Scaffolding Tools
