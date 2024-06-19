@@ -1,4 +1,14 @@
 # Gecko URL Shortener  🦎🔗
+## Deployed Application
+
+#### Deployed Application URL:
+```sh
+https://geckourlshortener.onrender.com
+```
+
+#### Visual Overview
+![Alt text](/screenshot.png)
+
 
 ## Installation Guide
 
@@ -54,12 +64,7 @@
 ### Scaffolding Tools
 - Rails generators were used to scaffold the initial application structure. Then, the generated code was modified to suit the requirements of the application.
 
-## Deployed Application
 
-#### Deployed Application URL:
-```sh
-https://geckourlshortener.onrender.com
-```
 
 
 **Note:** The web application is deployed on Render using the free basic plan. The free instance on Render will spin down with inactivity, so it may take a few seconds to load the application.
